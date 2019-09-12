@@ -35,5 +35,7 @@ public class URI {
     private String name;
     @Column
     private String contentType;
+    @Column
+    private String message;
 
 }

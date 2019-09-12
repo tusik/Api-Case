@@ -8,12 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 @Order(0)
 @Component
-@WebFilter(filterName = "testFilter1", urlPatterns = "/*")
-public class BaseFiler implements Filter{
+@WebFilter(filterName = "mainFilter", urlPatterns = "/*")
+public class BaseFilter implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String uri = ((HttpServletRequest)servletRequest).getRequestURI();
         filterChain.doFilter(servletRequest,servletResponse);
-        System.out.println(uri);
     }
 }
