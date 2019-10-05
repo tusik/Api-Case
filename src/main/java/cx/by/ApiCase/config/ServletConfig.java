@@ -9,9 +9,10 @@ package cx.by.ApiCase.config;
  * Create at: 2019-09-12
  **/
 
-import cx.by.ApiCase.jpa.repo.URIRepository;
-import cx.by.ApiCase.jpa.repo.UserRepository;
-import cx.by.ApiCase.model.URI;
+
+import cx.by.ApiCase.model.Link;
+import cx.by.ApiCase.repo.LinkRepo;
+
 import cx.by.ApiCase.servlet.BeanServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -22,13 +23,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import java.util.List;
-import java.util.Optional;
+
 
 @Component
 public class ServletConfig implements ServletContextInitializer {
 
     @Autowired
-    private URIRepository uriRepository;
+    private LinkRepo linkRepo;
 
     @Override
     /**
@@ -39,17 +40,13 @@ public class ServletConfig implements ServletContextInitializer {
     * @date: 2019/9/12
     **/
     public void onStartup(ServletContext servletContext)  {
-        List<URI> uop = uriRepository.findAll();
-        for(URI uri : uop){
-            System.out.println(uri.getAddress());
-            ServletRegistration init = servletContext.addServlet(uri.getName(), BeanServlet.class);
-            init.setInitParameter("uid", String.valueOf(uri.getUid()));
-            init.setInitParameter("address",uri.getAddress());
-            init.setInitParameter("code", String.valueOf(uri.getScode()));
-            init.setInitParameter("name",uri.getName());
-            init.setInitParameter("contenttype",uri.getContentType());
-            init.setInitParameter("returntype", String.valueOf(uri.getReturnType()));
-            init.addMapping(uri.getAddress());
+        List<Link> uop = linkRepo.findAll();
+        for(Link link : uop) {
+            System.out.println(link.getUri());
+            ServletRegistration init = servletContext.addServlet(link.getUri(), BeanServlet.class);
+            init.setInitParameter("uid", String.valueOf(link.getUid()));
+            init.addMapping("/"+link.getUri());
+
         }
 
     }

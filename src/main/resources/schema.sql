@@ -1,11 +1,17 @@
-create table if not exists uri
-(UID	INT PRIMARY KEY,
-ADDRESS	VARCHAR(255),
-SCODE	VARCHAR(50),
-NAME	VARCHAR(255),
-CONTENTTYPE	VARCHAR(100),
-RETURNTYPE	VARCHAR(50),
-CONTENT_TYPE	VARCHAR(255),
-RETURN_TYPE	VARCHAR(255),
-MESSAGE	Text
+CREATE TABLE if not exists links(
+uid INTEGER not null primary key auto_increment,
+uri varchar(512),
+rid INTEGER not null
+);
+CREATE TABLE if not exists response(
+rid INTEGER not null primary key auto_increment,
+rtype INTEGER not null,
+status INTEGER,
+content Text,
+response Text
+);
+CREATE TABLE if not exists resptype(
+rtid INTEGER not null primary key auto_increment,
+code INTEGER,
+name varchar(32)
 );

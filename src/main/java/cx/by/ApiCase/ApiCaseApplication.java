@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("cx.by.ApiCase")
 public class ApiCaseApplication {
 	@Autowired
 	private static ConfigurableApplicationContext context;
